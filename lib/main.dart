@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/PasswordScreen.dart';
 import 'package:flutter_login/SignUp.dart';
 import 'package:flutter_login/customviews/CustomText.dart';
 import 'package:flutter_login/customviews/CustomTextField.dart';
@@ -32,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -39,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               CustomText(
                 textDirection: TextDirection.ltr,
-                fontSize: 40,
+                fontSize: 35,
                 alignment: Alignment.centerLeft,
                 textAlign: TextAlign.center,
                 text: "Sign In",
@@ -67,15 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              CustomText(
-                textDirection: TextDirection.ltr,
-                fontSize: 15,
-                alignment: Alignment.centerRight,
-                textAlign: TextAlign.center,
-                text: "Forgot Password?",
-                edgeInsets: EdgeInsets.only(right: 20),
-                color: Colors.grey,
-                fontWeight: FontWeight.normal,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(new SecondPageRoute());
+                },
+                child: CustomText(
+                  textDirection: TextDirection.ltr,
+                  fontSize: 15,
+                  alignment: Alignment.centerRight,
+                  textAlign: TextAlign.center,
+                  text: "Forgot Password?",
+                  edgeInsets: EdgeInsets.only(right: 20),
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               SizedBox(
                 child: Container(
@@ -99,11 +107,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
+              /*Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignUp(), fullscreenDialog: true),
-
-              );
+                MaterialPageRoute(builder: (context) => SignUp()),
+              );*/
+              Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) {
+                        return SignUp();
+                      },
+                      transitionsBuilder:
+                          (context, animation1, animation2, child) {
+                        return FadeTransition(
+                          opacity: animation1,
+                          child: child,
+                        );
+                      },
+                      transitionDuration: Duration(milliseconds: 1000),
+                    ),
+                  );
             },
             child: Container(
               width: double.infinity,
@@ -139,5 +162,17 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+}
+
+class SecondPageRoute extends CupertinoPageRoute {
+  SecondPageRoute()
+      : super(builder: (BuildContext context) => new ForgotPassword());
+
+  // OPTIONAL IF YOU WISH TO HAVE SOME EXTRA ANIMATION WHILE ROUTING
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return new FadeTransition(opacity: animation, child: new ForgotPassword());
   }
 }
