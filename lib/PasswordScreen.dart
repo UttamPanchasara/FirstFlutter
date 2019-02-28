@@ -14,6 +14,9 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _Password extends State<ForgotPassword> {
+  String _email;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,33 +50,47 @@ class _Password extends State<ForgotPassword> {
               )
             ],
           ),
-          Column(
-            children: <Widget>[
-              CustomTextField(
-                labelText: "Email",
-                keyboardType: TextInputType.emailAddress,
-                edgeInsets:
-                EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 20),
-              ),
-              SizedBox(
-                child: Container(
-                  margin: EdgeInsets.only(right: 20, left: 20, top: 10),
-                  height: 45,
-                  child: RaisedButton(
-                    onPressed: () {},
-                    textColor: Colors.white,
-                    color: Colors.red,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "SEND AN EMAIL",
-                    ),
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                CustomTextField(
+                  autovalidate: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Enter Email';
+                    }
+                  },
+                  onSaved: (value) => this._email = value,
+                  labelText: "Email",
+                  keyboardType: TextInputType.emailAddress,
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 20),
                 ),
-                width: double.infinity,
-              ),
-            ],
+                SizedBox(
+                  child: Container(
+                    margin: EdgeInsets.only(right: 20, left: 20, top: 10),
+                    height: 45,
+                    child: RaisedButton(
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+
+                        }
+                      },
+                      textColor: Colors.white,
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "SEND",
+                      ),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                  width: double.infinity,
+                ),
+              ],
+            ),
           ),
         ],
       ),
