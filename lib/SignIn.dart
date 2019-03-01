@@ -13,7 +13,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInScreen extends State<SignIn> {
-
   // Initially password is obscure
   bool _obscureText = true;
   String _email;
@@ -52,7 +51,7 @@ class _SignInScreen extends State<SignIn> {
                   labelText: "Email",
                   keyboardType: TextInputType.emailAddress,
                   margin:
-                  EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 20),
+                      EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 20),
                 ),
                 CustomTextField(
                   autovalidate: false,
@@ -64,7 +63,7 @@ class _SignInScreen extends State<SignIn> {
                   onSaved: (value) => this._password = value,
                   labelText: "Password",
                   margin:
-                  EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5),
+                      EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5),
                   gestureDetector: GestureDetector(
                     child: Icon(
                       Icons.remove_red_eye,

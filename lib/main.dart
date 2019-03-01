@@ -44,20 +44,27 @@ class _SplashScreen extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Center(
-            child: CustomText(
-              textDirection: TextDirection.ltr,
-              fontSize: 40,
-              alignment: Alignment.center,
-              textAlign: TextAlign.center,
-              text: "Splash",
-              edgeInsets: EdgeInsets.only(left: 20, right: 20, top: 60),
-              fontWeight: FontWeight.bold,
-              color: Colors.deepOrangeAccent,
+          Expanded(
+            child: Center(
+              child: CustomText(
+                textDirection: TextDirection.ltr,
+                fontSize: 40,
+                alignment: Alignment.center,
+                textAlign: TextAlign.center,
+                text: "Splash",
+                edgeInsets: EdgeInsets.only(left: 20, right: 20, top: 60),
+                fontWeight: FontWeight.bold,
+                color: Colors.deepOrangeAccent,
+              ),
             ),
           ),
-          CircularProgressIndicator()
+          Container(
+            margin: EdgeInsets.all(20),
+            child: SizedBox(
+                width: 20.0, height: 20.0, child: CircularProgressIndicator()),
+          )
         ],
       ),
     );
