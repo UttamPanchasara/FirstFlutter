@@ -4,6 +4,7 @@ import 'package:flutter_login/PasswordScreen.dart';
 import 'package:flutter_login/SignUp.dart';
 import 'package:flutter_login/customviews/CustomText.dart';
 import 'package:flutter_login/customviews/CustomTextField.dart';
+import 'package:flutter_login/dashboard/Dashboard.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -97,9 +98,13 @@ class _SignInScreen extends State<SignIn> {
                     height: 45,
                     child: RaisedButton(
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
+                        /*if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                        }
+                        }*/
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Dashboard()));
                       },
                       textColor: Colors.white,
                       color: Colors.red,
