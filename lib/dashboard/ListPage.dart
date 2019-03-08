@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_login/model/Events.dart';
 import 'package:transparent_image/transparent_image.dart';
 import "package:intl/intl.dart";
 
@@ -9,11 +10,15 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  List<Events> eventList;
+
   Future getEvents() async {
     var fireInstance = Firestore.instance;
     QuerySnapshot qn = await fireInstance.collection("events").getDocuments();
-    var snapshots =
-        fireInstance.collection("events").document("xyz").snapshots();
+
+    /*qn.documents.forEach((document) {
+      eventList.add(Events.fromJson(document.data));
+    });*/
 
     return qn.documents;
   }
@@ -62,7 +67,9 @@ class _ListPageState extends State<ListPage> {
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (_, index) {
-                        var data = snapshot.data[index];
+                        var event = Events.fromJson(snapshot.data[index]);
+
+                        //var data = snapshot.data[index];
                         return Card(
                           color: Colors.white,
                           clipBehavior: Clip.antiAlias,
@@ -92,7 +99,7 @@ class _ListPageState extends State<ListPage> {
                                         height: 190,
                                         fit: BoxFit.cover,
                                         placeholder: kTransparentImage,
-                                        image: data.data['eventPoster'],
+                                        image: event.eventPoster,
                                       ),
                                     ),
                                   ],
@@ -112,8 +119,7 @@ class _ListPageState extends State<ListPage> {
                                             Container(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                data.data['eventName']
-                                                    .toString(),
+                                                event.eventName.toString(),
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.black,
@@ -148,7 +154,7 @@ class _ListPageState extends State<ListPage> {
                                               CrossAxisAlignment.end,
                                           children: <Widget>[
                                             Text(
-                                              '${numberFormat.format(data.data['eventTicketPrice']) ?? ""}',
+                                              '${numberFormat.format(event.eventTicketPrice) ?? ""}',
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   color:
