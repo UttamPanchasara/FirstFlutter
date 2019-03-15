@@ -27,9 +27,9 @@ class Events {
   int eventId;
   String eventName;
   String eventLocation;
-  EventLatLong eventLatLong;
+  GeoPoint eventLatLong;
   int eventTicketPrice;
-  int eventDate;
+  DateTime eventDate;
   String eventPoster;
   String eventDescription;
   List<EventMedia> eventMedia;
@@ -48,44 +48,32 @@ class Events {
     this.eventContacts,
   });
 
-  Events.fromJson(DocumentSnapshot json) {
-    eventId = json.data["eventId"];
-    eventName = json.data["eventName"];
-    eventLocation = json.data["eventLocation"];
-    eventLatLong = json.data["eventLatLong"] == null
-        ? EventLatLong()
-        : EventLatLong.fromJson(json.data["eventLatLong"]);
-    eventTicketPrice = json.data["eventTicketPrice"];
-    eventDate = json.data["eventDate"];
-    eventPoster = json.data["eventPoster"];
-    eventDescription = json.data["eventDescription"];
-    eventMedia = new List<EventMedia>.from(json["eventMedia"].map);
-    eventContacts = new List<EventContact>.from(
-        json["eventContacts"].map((x) => EventContact.fromJson(x)));
-  }
-
-  /*factory Events.fromJson(Map<String, dynamic> json) => new Events(
+  factory Events.fromJson(Map<String, dynamic> json) => new Events(
         eventId: json["eventId"],
         eventName: json["eventName"],
         eventLocation: json["eventLocation"],
         eventLatLong: json["eventLatLong"] == null
-            ? EventLatLong()
-            : EventLatLong.fromJson(json["eventLatLong"]),
+            ? GeoPoint(0, 0)
+            : json['eventLatLong'],
         eventTicketPrice: json["eventTicketPrice"],
         eventDate: json["eventDate"],
         eventPoster: json["eventPoster"],
         eventDescription: json["eventDescription"],
-        eventMedia: new List<EventMedia>.from(
-            json["eventMedia"].map((x) => EventMedia.fromJson(x))),
-        eventContacts: new List<EventContact>.from(
-            json["eventContacts"].map((x) => EventContact.fromJson(x))),
-      );*/
+        eventMedia: json["eventMedia"] != null
+            ? new List<EventMedia>.from(
+                json["eventMedia"].map((x) => EventMedia.fromJson(x)))
+            : null,
+        eventContacts: json["eventContacts"] != null
+            ? new List<EventContact>.from(
+                json["eventContacts"].map((x) => EventContact.fromJson(x)))
+            : null,
+      );
 
-  Map<String, dynamic> toJson() => {
+  Map<dynamic, dynamic> toJson() => {
         "eventId": eventId,
         "eventName": eventName,
         "eventLocation": eventLocation,
-        "eventLatLong": eventLatLong.toJson(),
+        "eventLatLong": eventLatLong,
         "eventTicketPrice": eventTicketPrice,
         "eventDate": eventDate,
         "eventPoster": eventPoster,
@@ -107,7 +95,7 @@ class EventContact {
     this.contactDetail,
   });
 
-  factory EventContact.fromJson(Map<String, dynamic> json) => new EventContact(
+  factory EventContact.fromJson(Map<dynamic, dynamic> json) => new EventContact(
         contactId: json["contactId"],
         contactName: json["contactName"],
         contactDetail: json["contactDetail"],
@@ -120,43 +108,6 @@ class EventContact {
       };
 }
 
-class EventLatLong {
-  GeoPointValue geoPointValue;
-
-  EventLatLong({
-    this.geoPointValue,
-  });
-
-  factory EventLatLong.fromJson(Map<String, dynamic> json) => new EventLatLong(
-        geoPointValue: GeoPointValue.fromJson(json["geoPointValue"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "geoPointValue": geoPointValue.toJson(),
-      };
-}
-
-class GeoPointValue {
-  double latitude;
-  double longitude;
-
-  GeoPointValue({
-    this.latitude,
-    this.longitude,
-  });
-
-  factory GeoPointValue.fromJson(Map<String, dynamic> json) =>
-      new GeoPointValue(
-        latitude: json["latitude"].toDouble(),
-        longitude: json["longitude"].toDouble(),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "latitude": latitude,
-        "longitude": longitude,
-      };
-}
-
 class EventMedia {
   int mediaId;
   String mediaUrl;
@@ -166,12 +117,7 @@ class EventMedia {
     this.mediaUrl,
   });
 
-  /*EventMedia.fromJson(DocumentSnapshot json) {
-    mediaId = json["mediaId"];
-    mediaUrl = json["mediaUrl"];
-  }*/
-
-  factory EventMedia.fromJson(Map<String, dynamic> json) =>
+  factory EventMedia.fromJson(Map<dynamic, dynamic> json) =>
       new EventMedia(mediaId: json["mediaId"], mediaUrl: json["mediaUrl"]);
 
   Map<String, dynamic> toJson() => {
