@@ -23,6 +23,8 @@ dependencies:
   transparent_image: ^0.1.0
   intl: ^0.15.6
   geolocator: ^3.0.1
+  firebase_auth: ^0.8.2
+  progress_hud: ^1.1.0
 
 dev_dependencies:
   flutter_test:
