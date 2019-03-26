@@ -1,8 +1,9 @@
 # Flutter + Firebase 
 
 ## Firebase Auth + Cloud Firestore Database
-
-| <img src="https://github.com/UttamPanchasara/FirstFlutter/blob/master/gif/flutter_login.gif" height="400" alt="Screenshot"/> | <img src="https://github.com/UttamPanchasara/FirstFlutter/blob/master/gif/item_listing.gif" height="400" alt="Screenshot"/> |
+|           SignIn-SignUp            |             Listing              |
+|------------------------------------|----------------------------------|
+|  <img src="https://github.com/UttamPanchasara/FirstFlutter/blob/master/gif/flutter_login.gif" height="400" alt="Screenshot"/> | <img src="https://github.com/UttamPanchasara/FirstFlutter/blob/master/gif/item_listing.gif" height="400" alt="Screenshot"/> |
 
 ### Features :
 
