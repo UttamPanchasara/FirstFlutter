@@ -25,7 +25,7 @@ class _PrepareListState extends State<PrepareList> {
   @override
   Widget build(BuildContext context) {
     var numberFormat = NumberFormat.currency(
-        symbol: String.fromCharCode(0163), decimalDigits: 0);
+        symbol: String.fromCharCode(8377), decimalDigits: 0);
 
     return ListView.builder(
         itemCount: data.length,
@@ -59,6 +59,7 @@ class _PrepareListState extends State<PrepareList> {
                       Center(
                         child: FadeInImage.memoryNetwork(
                           height: 190,
+                          width: double.infinity,
                           fit: BoxFit.cover,
                           placeholder: kTransparentImage,
                           image: event.eventPoster,
@@ -115,7 +116,7 @@ class _PrepareListState extends State<PrepareList> {
                                     color: Colors.deepPurpleAccent),
                               ),
                               Text(
-                                '/per day',
+                                '/today only',
                                 style:
                                     TextStyle(fontSize: 10, color: Colors.grey),
                               ),
@@ -125,23 +126,6 @@ class _PrepareListState extends State<PrepareList> {
                       ],
                     ),
                   )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    width: 30,
-                    height: 30,
-                    decoration: ShapeDecoration(
-                      color: Colors.pink,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    child: Icon(Icons.favorite, color: Colors.deepPurpleAccent),
-                  ),
                 ],
               ),
             ]),
